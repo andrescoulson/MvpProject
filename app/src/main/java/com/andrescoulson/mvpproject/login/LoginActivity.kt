@@ -1,8 +1,8 @@
 package com.andrescoulson.mvpproject.login
 
-import android.database.DatabaseUtils
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.andrescoulson.mvpproject.R
 import com.andrescoulson.mvpproject.config.App
@@ -12,20 +12,22 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity(), LoginMvp.LoginView {
 
     @Inject
-    lateinit var presenter: LoginMvp.LoginPresenter
-    val AppCompatActivity.app: App
-        get() = application as App
-    private val component by lazy { app.component.login(LoginModule(this)) }
+    lateinit var presenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        component.inject(this)
+        (application as App).component.inject(this)
+
+        btnLogin.setOnClickListener({ presenter.loginClick() })
+
+
     }
 
     override fun onResume() {
         super.onResume()
         presenter.setView(this)
+        presenter.getCurrentUser()
     }
 
     override fun getFirstName(): String {

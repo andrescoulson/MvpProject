@@ -1,8 +1,6 @@
 package com.andrescoulson.mvpproject.config
 
-import com.andrescoulson.mvpproject.MainComponent
-import com.andrescoulson.mvpproject.MainModule
-import com.andrescoulson.mvpproject.login.LoginComponet
+import com.andrescoulson.mvpproject.login.LoginActivity
 import com.andrescoulson.mvpproject.login.LoginModule
 import dagger.Component
 import javax.inject.Singleton
@@ -12,9 +10,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = [(ApplicationModule::class)])
+@Component(modules = [(ApplicationModule::class),(LoginModule::class)])
 interface ApplicationComponent {
-    fun inject(app: App)
-    fun plus(mainModule: MainModule): MainComponent
-    fun login(loginModule: LoginModule):LoginComponet
+    fun inject(app: LoginActivity)
 }
